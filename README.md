@@ -26,7 +26,7 @@ Aplicación realizada por:
 ---
 
 ## 🎥 Video Explicativo
-[Ver video explicativo](https://www.youtube.com/watch?v=7Svk5J_k53E)
+[Ver video explicativo](https://www.youtube.com/watch?v=7Svk5J_k53E&list=PLdIwJ2N8GXFjzUtZpqHT_nLWT9DkKsyDi&index=1) 
 
 ---
 
@@ -58,9 +58,17 @@ El código y el APK:
 ---
 
 ## 🎨 Bibliografía
-- [👉 Android ](https://developer.android.com/?hl=es-419)
-- [👉 Firebase ](https://firebase.google.com/docs?hl=es-419)
-- [👉 MoureDev ](https://www.youtube.com/watch?v=BQaxPwZWboA&list=PLNdFk2_brsRdYF0FXDtSaGvluzBNHRbNe)
-- [👉 AristiDevs ](https://www.youtube.com/watch?v=0UjtLmAO1SA&list=PL8ie04dqq7_ORKWIwiaSTcyBKtasZtNUD&index=2)
+- [👉 Android - Documentación Oficial ](https://developer.android.com/?hl=es-419)
+- [👉 Firebase - Documentación Oficial ](https://firebase.google.com/docs?hl=es-419)
+- [👉 Room - Documentación Oficial ](https://developer.android.com/training/data-storage/room?hl=es-419) 
+- [👉 RecyclerView - Documentación Oficial ](https://developer.android.com/develop/ui/views/layout/recyclerview?hl=es-419) 
+- [👉 Firebase ](https://www.youtube.com/watch?v=dpURgJ4HkMk&list=PLNdFk2_brsRcaGhfeeiVkW72qTYcn_nfQ&index=2)                        
+- [👉 Room ](https://www.youtube.com/watch?v=7N8X4DPQlNY)
+- [👉 RecyclerView ](https://www.youtube.com/watch?v=X-hYIQcmXUw) 
+- [👉 Guía Completa - MoureDev ](https://www.youtube.com/watch?v=BQaxPwZWboA&list=PLNdFk2_brsRdYF0FXDtSaGvluzBNHRbNe)
+- [👉 Guía Completa - AristiDevs ](https://www.youtube.com/watch?v=0UjtLmAO1SA&list=PL8ie04dqq7_ORKWIwiaSTcyBKtasZtNUD&index=1)
+- [👉 Guía Completa - Pildorasinformaticas ](https://www.youtube.com/watch?v=pdYkmCcQFd8&list=PLU8oAlHdN5Bkn-KS1sRFlSEnXXcAtAJ9P&index=1)  
+
+
 
 
