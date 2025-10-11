@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+        <style name="Theme.MyList" parent="Theme.Material3.DayNight.NoActionBar">
+                <!-- Colores de la ventana -->
+                <item name="android:statusBarColor">@color/purple_500</item>
+                <item name="android:navigationBarColor">@color/teal_200</item>
+
+                <!-- Estilo global para botones -->
+                <item name="android:buttonStyle">@style/BlackButton</item>
+        </style>
+
+        <!-- Estilo personalizado para botones negros con texto blanco -->
+        <style name="BlackButton" parent="Widget.Material3.Button">
+                <item name="android:backgroundTint">#000000</item>
+                <item name="android:textColor">#FFFFFF</item>
+        </style>
+
+</resources>

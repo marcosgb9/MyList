@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1085365011561",
+    "project_id": "mylist-a479c",
+    "storage_bucket": "mylist-a479c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085365011561:android:e1ebf15d76c7dcb97d8ef8",
+        "android_client_info": {
+          "package_name": "com.example.mylist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzHplBqn_XqXtBlsfu55dEkOq_ybU30Vs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
