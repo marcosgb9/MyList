@@ -42,9 +42,11 @@ El código y el APK:
 
 ---
 
-## 🗃️ Diagrama De Clases
+## 🗃️ Diagrama De Clases y Arquitectura
 
-![Diagrama de clases básicos](https://imgur.com/yVqPCzv.png) 
+![Diagrama de clases básicos](https://github.com/marcosgb9/MyList/blob/main/Diagrama%20De%20Clases/diagrama%20de%20clases.png) 
+
+![Diagrama de arquitectura](https://github.com/marcosgb9/MyList/blob/main/Diagrama%20De%20Clases/diagrama%20de%20arquitectura.png) 
 
 
 ---
