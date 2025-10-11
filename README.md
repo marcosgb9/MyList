@@ -65,8 +65,10 @@ El código y el APK:
 - [👉 Firebase ](https://www.youtube.com/watch?v=dpURgJ4HkMk&list=PLNdFk2_brsRcaGhfeeiVkW72qTYcn_nfQ&index=2)                        
 - [👉 Room ](https://www.youtube.com/watch?v=7N8X4DPQlNY)
 - [👉 RecyclerView ](https://www.youtube.com/watch?v=X-hYIQcmXUw) 
-- [👉 MoureDev ](https://www.youtube.com/watch?v=BQaxPwZWboA&list=PLNdFk2_brsRdYF0FXDtSaGvluzBNHRbNe)
-- [👉 AristiDevs ](https://www.youtube.com/watch?v=0UjtLmAO1SA&list=PL8ie04dqq7_ORKWIwiaSTcyBKtasZtNUD&index=2)
+- [👉 Guía Completa - MoureDev ](https://www.youtube.com/watch?v=BQaxPwZWboA&list=PLNdFk2_brsRdYF0FXDtSaGvluzBNHRbNe)
+- [👉 Guía Completa - AristiDevs ](https://www.youtube.com/watch?v=0UjtLmAO1SA&list=PL8ie04dqq7_ORKWIwiaSTcyBKtasZtNUD&index=1)
+- [👉 Guía Completa - Pildorasinformaticas ](https://www.youtube.com/watch?v=pdYkmCcQFd8&list=PLU8oAlHdN5Bkn-KS1sRFlSEnXXcAtAJ9P&index=1)  
+
 
 
 
