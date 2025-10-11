@@ -58,9 +58,13 @@ El código y el APK:
 ---
 
 ## 🎨 Bibliografía
-- [👉 Android ](https://developer.android.com/?hl=es-419)
-- [👉 Firebase ](https://firebase.google.com/docs?hl=es-419)
+- [👉 Android - Documentación Oficial ](https://developer.android.com/?hl=es-419)
+- [👉 Firebase - Documentación Oficial ](https://firebase.google.com/docs?hl=es-419)
+- [👉 Firebase ](https://www.youtube.com/watch?v=dpURgJ4HkMk&list=PLNdFk2_brsRcaGhfeeiVkW72qTYcn_nfQ&index=2)                        
+- [👉 Room ](https://www.youtube.com/watch?v=7N8X4DPQlNY)
+- [👉 RecyclerView ](https://www.youtube.com/watch?v=X-hYIQcmXUw) 
 - [👉 MoureDev ](https://www.youtube.com/watch?v=BQaxPwZWboA&list=PLNdFk2_brsRdYF0FXDtSaGvluzBNHRbNe)
 - [👉 AristiDevs ](https://www.youtube.com/watch?v=0UjtLmAO1SA&list=PL8ie04dqq7_ORKWIwiaSTcyBKtasZtNUD&index=2)
+
 
 
