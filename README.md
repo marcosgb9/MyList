@@ -26,7 +26,7 @@ Aplicación realizada por:
 ---
 
 ## 🎥 Video Explicativo
-[Ver video explicativo](https://www.youtube.com/watch?v=cm1d9t0Xejo)   
+[Ver video explicativo](https://youtu.be/BiMQYlqnPMs](https://www.youtube.com/watch?v=BiMQYlqnPMs)   
 
 ---
 
