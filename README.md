@@ -25,8 +25,8 @@ Aplicación realizada por:
   
 ---
 
-## 🎥 Video Explicativo
-[Ver video explicativo](https://www.youtube.com/watch?v=7Svk5J_k53E)   
+## 🎥 Canva Explicativo
+[Ver video explicativo](https://www.canva.com/design/DAG2DB6AJxE/TDDwv9rzJOhISRMr2aKESA/edit?utm_content=DAG2DB6AJxE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)   
 
 ---
 
@@ -34,6 +34,7 @@ Aplicación realizada por:
 [Figma del proyecto](https://www.figma.com/proto/lIHhW95rjoQJjLHq5kXqJP/MyList?node-id=0-1&t=wSwC4jYPPTHZbl61-1)
 
 ---
+
 
 ## 💻 Código
 El código y el APK:  
