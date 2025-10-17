@@ -25,8 +25,8 @@ Aplicación realizada por:
   
 ---
 
-## 🎥 Canva Explicativo
-[Ver video explicativo](https://www.canva.com/design/DAG2DB6AJxE/TDDwv9rzJOhISRMr2aKESA/edit?utm_content=DAG2DB6AJxE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)   
+## 🎥 Video Explicativo
+[Ver video explicativo](https://www.youtube.com/watch?v=cm1d9t0Xejo)   
 
 ---
 
