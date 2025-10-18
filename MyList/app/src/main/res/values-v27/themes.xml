@@ -2,15 +2,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
         <style name="Theme.MyList" parent="Theme.Material3.DayNight.NoActionBar">
-                <!-- Colores de la ventana -->
-                <item name="android:statusBarColor">@color/purple_500</item>
-                <item name="android:navigationBarColor">@color/teal_200</item>
+                <!-- Colores de la ventana (Arriba y Abajo) -->
+                <item name="android:statusBarColor">@android:color/black</item>
+                <item name="android:navigationBarColor">@android:color/black</item>
+
+                <!-- Forzar íconos y texto claros en las barras -->
+                <item name="android:windowLightStatusBar">false</item>
+                <item name="android:windowLightNavigationBar">false</item>>
 
                 <!-- Estilo global para botones -->
                 <item name="android:buttonStyle">@style/BlackButton</item>
         </style>
 
-        <!-- Estilo personalizado para botones negros con texto blanco -->
+        <!-- Botones negros con texto blanco -->
         <style name="BlackButton" parent="Widget.Material3.Button">
                 <item name="android:backgroundTint">#000000</item>
                 <item name="android:textColor">#FFFFFF</item>

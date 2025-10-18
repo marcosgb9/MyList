@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         val email = etEmail.text.toString().trim()
         val password = etContrasena.text.toString().trim()
 
-        // Validación básica
+        // Validación
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Por favor ingresa email y contraseña", Toast.LENGTH_SHORT).show()
             return
@@ -64,13 +64,13 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show()
-                    // Navegar a MainActivity
+                    // Navega a MainActivity
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     finish()
                 } else {
-                    // Mostrar error detallado
+                    // Mostrar error
                     Toast.makeText(
                         this,
                         "Error: ${task.exception?.localizedMessage}",

@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_login_register">
 
-        <!-- Contenedor centrado verticalmente -->
+        <!-- Contenedor -->
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="0dp"
@@ -37,7 +37,6 @@
                 android:scaleType="fitCenter"
                 android:layout_marginBottom="32dp"/>
 
-
             <!-- Email -->
             <EditText
                 android:id="@+id/etEmail"
@@ -47,6 +46,8 @@
                 android:hint="Correo electrónico"
                 android:inputType="textEmailAddress"
                 android:padding="12dp"
+                android:textColor="#000000"
+                android:textColorHint="#808080"
                 android:layout_marginBottom="16dp" />
 
             <!-- Contraseña -->
@@ -58,6 +59,8 @@
                 android:hint="Contraseña"
                 android:inputType="textPassword"
                 android:padding="12dp"
+                android:textColor="#000000"
+                android:textColorHint="#808080"
                 android:layout_marginBottom="16dp" />
 
             <!-- Repetir contraseña -->
@@ -69,6 +72,8 @@
                 android:hint="Vuelve a escribir la contraseña"
                 android:inputType="textPassword"
                 android:padding="12dp"
+                android:textColor="#000000"
+                android:textColorHint="#808080"
                 android:layout_marginBottom="24dp" />
 
             <!-- Botón Registrarse -->

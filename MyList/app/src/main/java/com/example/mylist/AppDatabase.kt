@@ -11,14 +11,16 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         @Volatile
+        // Instancia única
         private var INSTANCE: AppDatabase? = null
 
+        // Obtener base de datos
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "app_database"
+                    "app_database" // Nombre del archivo DB
                 ).build()
                 INSTANCE = instance
                 instance

@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
 
-
+        // Verificar si el usuario está autenticado
         val currentUser = auth.currentUser
         if (currentUser == null) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -48,22 +48,22 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-
+        // Botones y elementos de la interfaz
         logoutButton = findViewById(R.id.buttonLogout)
         addButton = findViewById(R.id.buttonAdd)
         generoFiltro = findViewById(R.id.spinnerGenero)
         recyclerView = findViewById(R.id.recyclerViewReview)
 
-
+        // Base de datos
         db = AppDatabase.getDatabase(this)
         reviewDao = db.userReviewDao()
 
-
+        // Configurar RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ReviewAdapter(reviews) { review -> mostrarDialogoEditar(review) }
         recyclerView.adapter = adapter
 
-
+        // Generos (Filtrar)
         val generos = arrayOf(
             "Todos",
             "Accion",
@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             "Bélica"
         )
 
+         // Spinner
         generoFiltro.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, generos)
 
@@ -101,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
         addButton.setOnClickListener { mostrarDialogoAñadir() }
 
-
+        // Cerrar sesion
         logoutButton.setOnClickListener {
             auth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
@@ -114,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         filtrarLista("Todos")
     }
 
+    // Filtra las reseñas según el género seleccionado
     private fun filtrarLista(genero: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val lista = if (genero == "Todos") reviewDao.getAll() else reviewDao.getByGenero(genero)
@@ -124,6 +126,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Dialogo de añadir reseña
     private fun mostrarDialogoAñadir() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_resena, null)
         val tituloInput = dialogView.findViewById<EditText>(R.id.editTitulo)
@@ -148,6 +151,8 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+
+    // Dialogo de editar reseña
     private fun mostrarDialogoEditar(resena: UserReview) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_resena, null)
         val tituloInput = dialogView.findViewById<EditText>(R.id.editTitulo)

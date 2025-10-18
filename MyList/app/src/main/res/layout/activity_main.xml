@@ -13,13 +13,13 @@
         android:scaleType="centerCrop"
         android:contentDescription="Fondo"/>
 
-    <!-- Contenedor principal -->
+    <!-- Contenedor  -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- TopBar con logo a la izquierda y botón Cerrar Sesión a la derecha -->
+        <!-- TopBar -->
         <LinearLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
