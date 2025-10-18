@@ -26,7 +26,7 @@ Aplicación realizada por:
 ---
 
 ## 🎥 Video Explicativo
-[Ver video explicativo](https://www.youtube.com/watch?v=7Svk5J_k53E)   
+[Ver video explicativo](https://www.youtube.com/watch?v=0F6ok7EYJ9M)   
 
 ---
 
@@ -34,6 +34,7 @@ Aplicación realizada por:
 [Figma del proyecto](https://www.figma.com/proto/lIHhW95rjoQJjLHq5kXqJP/MyList?node-id=0-1&t=wSwC4jYPPTHZbl61-1)
 
 ---
+
 
 ## 💻 Código
 El código y el APK:  
