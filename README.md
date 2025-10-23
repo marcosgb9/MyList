@@ -7,6 +7,14 @@
 
 ---
 
+## 🚀 Características principales
+- 📌 **Guardar reseñas:** Añade tus opiniones sobre películas y series favoritas.  
+- 🔍 **Consultar fácilmente:** Accede a tus reseñas siempre que quieras. 
+- ✏️ **Actualizar y editar:** Modifica tus reseñas cuando cambie tu opinión.
+- 🔒 **Seguridad:** Integración con Firebase para mantener tus datos seguros y sincronizados.
+  
+---
+
 ## 🛠 Tecnologías utilizadas
 - **Kotlin** – Lenguaje principal para el desarrollo de la app.  
 - **Android Studio** – IDE oficial para el desarrollo Android.  
@@ -49,14 +57,6 @@ El código y el APK:
 
 ![Diagrama de arquitectura](https://github.com/marcosgb9/MyList/blob/main/Diagrama%20De%20Clases/diagrama%20de%20arquitectura.png) 
 
-
----
-
-## 🚀 Características principales
-- 📌 **Guardar reseñas:** Añade tus opiniones sobre películas y series favoritas.  
-- 🔍 **Consultar fácilmente:** Accede a tus reseñas siempre que quieras. 
-- ✏️ **Actualizar y editar:** Modifica tus reseñas cuando cambie tu opinión.
-- 🔒 **Seguridad:** Integración con Firebase para mantener tus datos seguros y sincronizados.  
 
 ---
 
