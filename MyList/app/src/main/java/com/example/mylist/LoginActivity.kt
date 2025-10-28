@@ -3,6 +3,7 @@ package com.example.mylist
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -41,11 +42,30 @@ class LoginActivity : AppCompatActivity() {
 
         // Olvidaste contraseña
         tvOlvidar.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Función temporalmente no disponible",
-                Toast.LENGTH_LONG
-            ).show()
+            val emailInput = EditText(this).apply { hint = "Introduce tu correo" }
+
+            AlertDialog.Builder(this)
+                .setTitle("Restablecer contraseña")
+                .setMessage("Ingresa tu correo electrónico para recibir el enlace:")
+                .setView(emailInput)
+                .setPositiveButton("Enviar") { _, _ ->
+                    val email = emailInput.text.toString().trim()
+                    if (email.isEmpty()) {
+                        Toast.makeText(this, "Debes ingresar un correo", Toast.LENGTH_SHORT).show()
+                        return@setPositiveButton
+                    }
+
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                        .addOnCompleteListener { task ->
+                            val mensaje = if (task.isSuccessful)
+                                "Correo de recuperación de contraseña enviado a $email"
+                            else
+                                "Error: ${task.exception?.message}"
+                            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+                        }
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
         }
     }
 
