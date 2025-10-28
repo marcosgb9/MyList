@@ -1,31 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/editTitulo"
-        android:hint="Título"
-        android:inputType="text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"/>
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editGenero"
-        android:hint="Género"
-        android:inputType="text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"/>
+        <!-- Título -->
+        <TextView
+            android:id="@+id/textTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Título:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
 
-    <EditText
-        android:id="@+id/editComentario"
-        android:hint="Comentario"
-        android:inputType="textMultiLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"/>
-</LinearLayout>
+        <EditText
+            android:id="@+id/editTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Título"
+            android:inputType="textCapWords"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Género -->
+        <TextView
+            android:id="@+id/textGenero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Género:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <Spinner
+            android:id="@+id/spinnerGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:paddingVertical="8dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/transparent" />
+
+        <!-- Comentario -->
+        <TextView
+            android:id="@+id/textComentario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentario:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/editComentario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Reseña"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top|start"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Valoración -->
+        <RatingBar
+            android:id="@+id/ratingBarValoracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="0"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:progressTint="#FFD700"
+            android:secondaryProgressTint="#FFD700"
+            android:tileMode="clamp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Imagen -->
+        <TextView
+            android:id="@+id/textImagen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imagen:"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <!-- Vista previa -->
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            android:contentDescription="Vista previa de la imagen seleccionada"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <!-- Botón para seleccionar imagen -->
+        <Button
+            android:id="@+id/btnSeleccionarImagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar imagen"
+            android:drawableStart="@android:drawable/ic_menu_gallery"
+            android:drawablePadding="8dp"
+            android:backgroundTint="#000000"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="8dp" />
+
+
+    </LinearLayout>
+</ScrollView>

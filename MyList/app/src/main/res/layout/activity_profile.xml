@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Toolbar negra con flecha y logo ligeramente a la izquierda -->
+        <!-- Toolbar negra   -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarProfile"
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!-- Logo ligeramente a la izquierda del centro -->
+                <!-- Logo -->
                 <ImageView
                     android:id="@+id/logoImage"
                     android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.40"/> <!-- 0.5 centro exacto, 0.45 un poco a la izquierda -->
+                    app:layout_constraintHorizontal_bias="0.40"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
