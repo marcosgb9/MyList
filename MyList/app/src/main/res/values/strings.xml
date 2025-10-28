@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">MyList</string>
+    <string-array name="generos_array">
+        <item>Todos</item>
+        <item>Accion</item>
+        <item>Comedia</item>
+        <item>Drama</item>
+        <item>Terror</item>
+        <item>Ciencia Ficcion</item>
+        <item>Romance</item>
+        <item>Aventura</item>
+        <item>Animación</item>
+        <item>Musical</item>
+        <item>Suspenso</item>
+        <item>Documental</item>
+        <item>Fantasia</item>
+        <item>Historia</item>
+        <item>Bélica</item>
+    </string-array>
 </resources>

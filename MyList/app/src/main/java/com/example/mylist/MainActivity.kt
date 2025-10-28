@@ -4,13 +4,16 @@ import AppDatabase
 import UserReview
 import UserReviewDao
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +23,6 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var logoutButton: Button
     private lateinit var addButton: Button
     private lateinit var generoFiltro: Spinner
     private lateinit var recyclerView: RecyclerView
@@ -38,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
 
-        // Verificar si el usuario está autenticado
         val currentUser = auth.currentUser
         if (currentUser == null) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -48,43 +49,21 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        // Botones y elementos de la interfaz
-        logoutButton = findViewById(R.id.buttonLogout)
         addButton = findViewById(R.id.buttonAdd)
         generoFiltro = findViewById(R.id.spinnerGenero)
         recyclerView = findViewById(R.id.recyclerViewReview)
 
-        // Base de datos
         db = AppDatabase.getDatabase(this)
         reviewDao = db.userReviewDao()
 
-        // Configurar RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ReviewAdapter(reviews) { review -> mostrarDialogoEditar(review) }
         recyclerView.adapter = adapter
 
-        // Generos (Filtrar)
-        val generos = arrayOf(
-            "Todos",
-            "Accion",
-            "Comedia",
-            "Drama",
-            "Terror",
-            "Ciencia Ficcion",
-            "Romance",
-            "Aventura",
-            "Animación",
-            "Musical",
-            "Suspenso",
-            "Documental",
-            "Fantasia",
-            "Historia",
-            "Bélica"
-        )
+        val generosFiltro = resources.getStringArray(R.array.generos_array)
 
-         // Spinner
         generoFiltro.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, generos)
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, generosFiltro)
 
         generoFiltro.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -93,29 +72,48 @@ class MainActivity : AppCompatActivity() {
                 pos: Int,
                 id: Long
             ) {
-                filtrarLista(generos[pos])
+                filtrarLista(generosFiltro[pos])
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-
         addButton.setOnClickListener { mostrarDialogoAñadir() }
 
-        // Cerrar sesion
-        logoutButton.setOnClickListener {
-            auth.signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
+        val imageProfile = findViewById<ImageView>(R.id.imageProfile)
+        imageProfile.setOnClickListener { view ->
+            PopupMenu(this, view).apply {
+                menuInflater.inflate(R.menu.profile_menu, menu)
+
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.menu_ver_perfil -> {
+                            startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
+                            true
+                        }
+
+                        R.id.menu_cerrar_sesion -> {
+                            auth.signOut()
+                            Intent(this@MainActivity, LoginActivity::class.java).also { intent ->
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                            }
+                            finish()
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+                show()
+            }
         }
 
 
         filtrarLista("Todos")
     }
 
-    // Filtra las reseñas según el género seleccionado
     private fun filtrarLista(genero: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val lista = if (genero == "Todos") reviewDao.getAll() else reviewDao.getByGenero(genero)
@@ -126,22 +124,62 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Dialogo de añadir reseña
+    private var vistaPreviaTemporal: ImageView? = null
+    private var imagenSeleccionada: String? = null
+
+    private val selectorImagenLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { imagenElegida: Uri? ->
+        if (imagenElegida != null) {
+            imagenSeleccionada = imagenElegida.toString()
+            vistaPreviaTemporal?.let { imageView ->
+                Glide.with(this)
+                    .load(imagenElegida)
+                    .centerCrop()
+                    .placeholder(R.drawable.placeholder)
+                    .into(imageView)
+            }
+        }
+    }
+
     private fun mostrarDialogoAñadir() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_resena, null)
         val tituloInput = dialogView.findViewById<EditText>(R.id.editTitulo)
-        val generoInput = dialogView.findViewById<EditText>(R.id.editGenero)
         val comentarioInput = dialogView.findViewById<EditText>(R.id.editComentario)
+        val generoSpinner = dialogView.findViewById<Spinner>(R.id.spinnerGenero)
+        val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBarValoracion)
+        val imageView = dialogView.findViewById<ImageView>(R.id.imagePreview)
+        val btnSeleccionarImagen = dialogView.findViewById<Button>(R.id.btnSeleccionarImagen)
+
+        vistaPreviaTemporal = imageView
+        imagenSeleccionada = null
+
+        val generos = resources.getStringArray(R.array.generos_array).drop(1)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, generos)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        generoSpinner.adapter = adapter
+
+        btnSeleccionarImagen.setOnClickListener {
+            selectorImagenLauncher.launch("image/*")
+        }
 
         AlertDialog.Builder(this)
             .setTitle("Añadir Reseña")
             .setView(dialogView)
             .setPositiveButton("Guardar") { _, _ ->
+                if (imagenSeleccionada.isNullOrEmpty()) {
+                    Toast.makeText(this, "Debes seleccionar una imagen", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
                 val resena = UserReview(
                     titulo = tituloInput.text.toString(),
-                    genero = generoInput.text.toString(),
-                    comentario = comentarioInput.text.toString()
+                    genero = generoSpinner.selectedItem.toString(),
+                    comentario = comentarioInput.text.toString(),
+                    valoracion = ratingBar.rating.toInt(),
+                    imagen = imagenSeleccionada!!
                 )
+
                 lifecycleScope.launch(Dispatchers.IO) {
                     reviewDao.insert(resena)
                     filtrarLista(generoFiltro.selectedItem.toString())
@@ -151,27 +189,60 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-
-    // Dialogo de editar reseña
     private fun mostrarDialogoEditar(resena: UserReview) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_resena, null)
         val tituloInput = dialogView.findViewById<EditText>(R.id.editTitulo)
-        val generoInput = dialogView.findViewById<EditText>(R.id.editGenero)
         val comentarioInput = dialogView.findViewById<EditText>(R.id.editComentario)
+        val generoSpinner = dialogView.findViewById<Spinner>(R.id.spinnerGenero)
+        val ratingBar = dialogView.findViewById<RatingBar>(R.id.ratingBarValoracion)
+        val imageView = dialogView.findViewById<ImageView>(R.id.imagePreview)
+        val btnSeleccionarImagen = dialogView.findViewById<Button>(R.id.btnSeleccionarImagen)
+
+        vistaPreviaTemporal = imageView
+        imagenSeleccionada = resena.imagen
+
+        val generos = resources.getStringArray(R.array.generos_array).drop(1)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, generos)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        generoSpinner.adapter = adapter
 
         tituloInput.setText(resena.titulo)
-        generoInput.setText(resena.genero)
         comentarioInput.setText(resena.comentario)
+        ratingBar.rating = resena.valoracion.toFloat()
+
+        // Carga la imagen con Glide
+        if (resena.imagen.isNotEmpty()) {
+            Glide.with(this)
+                .load(Uri.parse(resena.imagen))
+                .centerCrop()
+                .placeholder(R.drawable.placeholder)
+                .into(imageView)
+        }
+
+        val pos = generos.indexOf(resena.genero)
+        if (pos >= 0) generoSpinner.setSelection(pos)
+
+        btnSeleccionarImagen.setOnClickListener {
+            selectorImagenLauncher.launch("image/*")
+        }
 
         AlertDialog.Builder(this)
             .setTitle("Editar Reseña")
             .setView(dialogView)
             .setPositiveButton("Guardar") { _, _ ->
+                if (imagenSeleccionada.isNullOrEmpty()) {
+                    Toast.makeText(this, "Debes seleccionar una imagen", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
                 val resenaActualizada = resena.copy(
                     titulo = tituloInput.text.toString(),
-                    genero = generoInput.text.toString(),
-                    comentario = comentarioInput.text.toString()
+                    genero = generoSpinner.selectedItem.toString(),
+                    comentario = comentarioInput.text.toString(),
+                    valoracion = ratingBar.rating.toInt(),
+                    imagen = imagenSeleccionada!!
                 )
+
                 lifecycleScope.launch(Dispatchers.IO) {
                     reviewDao.update(resenaActualizada)
                     filtrarLista(generoFiltro.selectedItem.toString())
