@@ -22,6 +22,7 @@
 - **Room (SQLite)** - Almacenamiento local de reseñas.
 - **Material Design 3** - Interfaz moderna y estilizada.
 - **RecyclerView** - Mostrar la lista de reseñas dinámicamente.
+- **Glide** - Cargar, mostrar y manejar imágenes locales.
 
 ---
 
