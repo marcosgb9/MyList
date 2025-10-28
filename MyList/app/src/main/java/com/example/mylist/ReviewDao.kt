@@ -13,7 +13,9 @@ data class UserReview(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     val titulo: String,
     val genero: String,
-    val comentario: String
+    val comentario: String,
+    val valoracion: Int,
+    val imagen: String
 )
 
 @Dao
