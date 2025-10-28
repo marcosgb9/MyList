@@ -71,6 +71,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    
+    // Fyrebase
     implementation(platform("com.google.firebase:firebase-bom:34.3.0"))
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-auth")
@@ -78,7 +80,7 @@ dependencies {
 
 
 
-
+    // Diseño
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
     implementation("androidx.recyclerview:recyclerview:1.3.1")
@@ -86,10 +88,15 @@ dependencies {
 
 
 
-
+    // Base De Datos
     implementation("androidx.room:room-runtime:2.8.1")
     kapt("androidx.room:room-compiler:2.8.1")
     implementation("androidx.room:room-ktx:2.8.1")
+
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    kapt("com.github.bumptech.glide:compiler:4.16.0")
 
 
 
