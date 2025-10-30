@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Imagen más pequeña -->
+        <!-- Imagen -->
         <ImageView
             android:id="@+id/imageResena"
             android:layout_width="match_parent"
@@ -58,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:maxLines="2" />
+            android:lineSpacingExtra="2dp"
+            android:layout_gravity="start" />
 
         <!-- Valoración -->
         <RatingBar
