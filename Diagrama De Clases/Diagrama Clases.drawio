@@ -129,7 +129,7 @@
         <mxCell id="zkfFHV4jXpPFQw0GAbJ--25" value="+ reviewDao(): ReviewDao" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="zkfFHV4jXpPFQw0GAbJ--17" vertex="1">
           <mxGeometry y="86" width="262" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="fVmAXPzNtCIdIuna9Oln-15" value="ReviewDao " style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="fVmAXPzNtCIdIuna9Oln-15" value="UserReviewDao" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="237" y="477" width="262" height="156" as="geometry">
             <mxRectangle x="550" y="140" width="160" height="26" as="alternateBounds" />
           </mxGeometry>
@@ -149,7 +149,7 @@
         <mxCell id="fVmAXPzNtCIdIuna9Oln-21" value=" + delete(review: Review)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="fVmAXPzNtCIdIuna9Oln-15" vertex="1">
           <mxGeometry y="130" width="262" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="fVmAXPzNtCIdIuna9Oln-28" value="Review " style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="fVmAXPzNtCIdIuna9Oln-28" value="UserReview" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=0;shadow=0;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="247" y="725" width="160" height="208" as="geometry">
             <mxRectangle x="340" y="380" width="170" height="26" as="alternateBounds" />
           </mxGeometry>
@@ -166,10 +166,10 @@
         <mxCell id="fVmAXPzNtCIdIuna9Oln-32" value="  - comentario: String" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="fVmAXPzNtCIdIuna9Oln-28" vertex="1">
           <mxGeometry y="104" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="kTxxk7AfBNd2xQqwwEXu-0" value="  - valoracion: int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="fVmAXPzNtCIdIuna9Oln-28">
+        <mxCell id="kTxxk7AfBNd2xQqwwEXu-0" value="  - valoracion: int" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="fVmAXPzNtCIdIuna9Oln-28" vertex="1">
           <mxGeometry y="130" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="kTxxk7AfBNd2xQqwwEXu-1" value="  - imagen: String" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="fVmAXPzNtCIdIuna9Oln-28">
+        <mxCell id="kTxxk7AfBNd2xQqwwEXu-1" value="  - imagen: String" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="fVmAXPzNtCIdIuna9Oln-28" vertex="1">
           <mxGeometry y="156" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="fVmAXPzNtCIdIuna9Oln-33" value="- adapter: ReviewAdapter&#xa;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="fVmAXPzNtCIdIuna9Oln-28" vertex="1">
