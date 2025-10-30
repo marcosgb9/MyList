@@ -18,7 +18,7 @@
 ## 🛠 Tecnologías utilizadas
 - **Kotlin** – Lenguaje principal para el desarrollo de la app.  
 - **Android Studio** – IDE oficial para el desarrollo Android.  
-- **Firebase** – Base de datos y autenticación para guardar y gestionar tus reseñas.
+- **Firebase** – Autenticación y gestión segura de cuentas.
 - **Room (SQLite)** - Almacenamiento local de reseñas.
 - **Material Design 3** - Interfaz moderna y estilizada.
 - **RecyclerView** - Mostrar la lista de reseñas dinámicamente.
