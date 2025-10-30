@@ -163,30 +163,68 @@ class MainActivity : AppCompatActivity() {
             selectorImagenLauncher.launch("image/*")
         }
 
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
             .setTitle("Añadir Reseña")
             .setView(dialogView)
-            .setPositiveButton("Guardar") { _, _ ->
-                if (imagenSeleccionada.isNullOrEmpty()) {
-                    Toast.makeText(this, "Debes seleccionar una imagen", Toast.LENGTH_SHORT).show()
-                    return@setPositiveButton
-                }
+            .setPositiveButton("Guardar", null)
+            .setNegativeButton("Cancelar", null)
+            .create()
 
-                val resena = UserReview(
-                    titulo = tituloInput.text.toString(),
-                    genero = generoSpinner.selectedItem.toString(),
-                    comentario = comentarioInput.text.toString(),
-                    valoracion = ratingBar.rating.toInt(),
-                    imagen = imagenSeleccionada!!
-                )
+        dialog.setOnShowListener {
+            val botonGuardar = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            botonGuardar.setOnClickListener {
+                val titulo = tituloInput.text.toString().trim()
+                val comentario = comentarioInput.text.toString().trim()
+                val genero = generoSpinner.selectedItem?.toString()?.trim() ?: ""
+                val valoracion = ratingBar.rating
+                val imagen = imagenSeleccionada
 
-                lifecycleScope.launch(Dispatchers.IO) {
-                    reviewDao.insert(resena)
-                    filtrarLista(generoFiltro.selectedItem.toString())
+                when {
+                    titulo.isEmpty() -> Toast.makeText(
+                        this,
+                        "El título no puede estar vacío",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    comentario.isEmpty() -> Toast.makeText(
+                        this,
+                        "El comentario no puede estar vacío",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    valoracion == 0f -> Toast.makeText(
+                        this,
+                        "Debes dar una valoración",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    imagen.isNullOrEmpty() -> Toast.makeText(
+                        this,
+                        "Debes seleccionar una imagen",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    else -> {
+                        val resena = UserReview(
+                            titulo = titulo,
+                            genero = genero,
+                            comentario = comentario,
+                            valoracion = valoracion.toInt(),
+                            imagen = imagen
+                        )
+
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            reviewDao.insert(resena)
+                            filtrarLista(generoFiltro.selectedItem.toString())
+                        }
+
+                        dialog.dismiss()
+                    }
                 }
             }
-            .setNegativeButton("Cancelar", null)
-            .show()
+        }
+
+        dialog.show()
     }
 
     private fun mostrarDialogoEditar(resena: UserReview) {
@@ -210,7 +248,7 @@ class MainActivity : AppCompatActivity() {
         comentarioInput.setText(resena.comentario)
         ratingBar.rating = resena.valoracion.toFloat()
 
-        // Carga la imagen con Glide
+        // Cargar imagen existente con Glide
         if (resena.imagen.isNotEmpty()) {
             Glide.with(this)
                 .load(Uri.parse(resena.imagen))
@@ -226,35 +264,78 @@ class MainActivity : AppCompatActivity() {
             selectorImagenLauncher.launch("image/*")
         }
 
-        AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
             .setTitle("Editar Reseña")
             .setView(dialogView)
-            .setPositiveButton("Guardar") { _, _ ->
-                if (imagenSeleccionada.isNullOrEmpty()) {
-                    Toast.makeText(this, "Debes seleccionar una imagen", Toast.LENGTH_SHORT).show()
-                    return@setPositiveButton
-                }
+            .setPositiveButton("Guardar", null)
+            .setNeutralButton("Borrar", null)
+            .setNegativeButton("Cancelar", null)
+            .create()
 
-                val resenaActualizada = resena.copy(
-                    titulo = tituloInput.text.toString(),
-                    genero = generoSpinner.selectedItem.toString(),
-                    comentario = comentarioInput.text.toString(),
-                    valoracion = ratingBar.rating.toInt(),
-                    imagen = imagenSeleccionada!!
-                )
+        dialog.setOnShowListener {
+            val botonGuardar = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            val botonBorrar = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
 
-                lifecycleScope.launch(Dispatchers.IO) {
-                    reviewDao.update(resenaActualizada)
-                    filtrarLista(generoFiltro.selectedItem.toString())
+            botonGuardar.setOnClickListener {
+                val titulo = tituloInput.text.toString().trim()
+                val comentario = comentarioInput.text.toString().trim()
+                val genero = generoSpinner.selectedItem?.toString()?.trim() ?: resena.genero
+                val valoracion = ratingBar.rating
+                val imagen = imagenSeleccionada
+
+                when {
+                    titulo.isEmpty() -> Toast.makeText(
+                        this,
+                        "El título no puede estar vacío",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    comentario.isEmpty() -> Toast.makeText(
+                        this,
+                        "El comentario no puede estar vacío",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    valoracion == 0f -> Toast.makeText(
+                        this,
+                        "Debes dar una valoración",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    imagen.isNullOrEmpty() -> Toast.makeText(
+                        this,
+                        "Debes seleccionar una imagen",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    else -> {
+                        val resenaActualizada = resena.copy(
+                            titulo = titulo,
+                            genero = genero,
+                            comentario = comentario,
+                            valoracion = valoracion.toInt(),
+                            imagen = imagen
+                        )
+
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            reviewDao.update(resenaActualizada)
+                            filtrarLista(generoFiltro.selectedItem.toString())
+                        }
+
+                        dialog.dismiss()
+                    }
                 }
             }
-            .setNeutralButton("Borrar") { _, _ ->
+
+            botonBorrar.setOnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {
                     reviewDao.delete(resena)
                     filtrarLista(generoFiltro.selectedItem.toString())
                 }
+                dialog.dismiss()
             }
-            .setNegativeButton("Cancelar", null)
-            .show()
+        }
+
+        dialog.show()
     }
 }
