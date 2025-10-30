@@ -248,7 +248,6 @@ class MainActivity : AppCompatActivity() {
         comentarioInput.setText(resena.comentario)
         ratingBar.rating = resena.valoracion.toFloat()
 
-        // Cargar imagen existente con Glide
         if (resena.imagen.isNotEmpty()) {
             Glide.with(this)
                 .load(Uri.parse(resena.imagen))
