@@ -102,19 +102,6 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-
-
-        // Lógica del Spinner
-        fun filtrarLista(genero: String) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                val lista = if (genero == "Todos") reviewDao.getAll() else reviewDao.getByGenero(genero)
-                withContext(Dispatchers.Main) {
-                    reviews = lista
-                    adapter.actualizarDatos(reviews)
-                }
-            }
-        }
-
         // Lógica del botón (Añadir Reseña)
         addButton.setOnClickListener { mostrarDialogoAñadir() }
 
