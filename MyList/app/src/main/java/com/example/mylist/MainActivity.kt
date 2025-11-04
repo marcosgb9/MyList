@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.core.widget.addTextChangedListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var reviewDao: UserReviewDao
     private var reviews = listOf<UserReview>()
 
+    private lateinit var editBuscar: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
 
+        // Verificar si el usuario está autenticado
         val currentUser = auth.currentUser
         if (currentUser == null) {
             val intent = Intent(this, LoginActivity::class.java)
@@ -49,17 +53,37 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        // Inicializar vistas
         addButton = findViewById(R.id.buttonAdd)
         generoFiltro = findViewById(R.id.spinnerGenero)
         recyclerView = findViewById(R.id.recyclerViewReview)
+        editBuscar = findViewById(R.id.editBuscar)
 
+        // Inicializar Room
         db = AppDatabase.getDatabase(this)
         reviewDao = db.userReviewDao()
 
+        // Configurar RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ReviewAdapter(reviews) { review -> mostrarDialogoEditar(review) }
         recyclerView.adapter = adapter
 
+
+        // Carga todas las reseñas al iniciar (método)
+        cargarTodas()
+
+        // Lógica del Buscador
+        editBuscar.addTextChangedListener { texto ->
+            val query = texto.toString()
+            if (query.isBlank()) {
+                cargarTodas()
+            } else {
+                buscarPorTitulo(query)
+            }
+        }
+
+
+        // Lógica del Spinner
         val generosFiltro = resources.getStringArray(R.array.generos_array)
 
         generoFiltro.adapter =
@@ -78,8 +102,23 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
+
+
+        // Lógica del Spinner
+        fun filtrarLista(genero: String) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val lista = if (genero == "Todos") reviewDao.getAll() else reviewDao.getByGenero(genero)
+                withContext(Dispatchers.Main) {
+                    reviews = lista
+                    adapter.actualizarDatos(reviews)
+                }
+            }
+        }
+
+        // Lógica del botón (Añadir Reseña)
         addButton.setOnClickListener { mostrarDialogoAñadir() }
 
+        // Lógica del perfil (Menú Popup)
         val imageProfile = findViewById<ImageView>(R.id.imageProfile)
         imageProfile.setOnClickListener { view ->
             PopupMenu(this, view).apply {
@@ -114,6 +153,7 @@ class MainActivity : AppCompatActivity() {
         filtrarLista("Todos")
     }
 
+    // Lógica del Spinner
     private fun filtrarLista(genero: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val lista = if (genero == "Todos") reviewDao.getAll() else reviewDao.getByGenero(genero)
@@ -124,9 +164,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private var vistaPreviaTemporal: ImageView? = null
     private var imagenSeleccionada: String? = null
 
+    // Lógica de selección de imagen (Dentro del dialogo)
     private val selectorImagenLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { imagenElegida: Uri? ->
@@ -142,6 +184,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Lógica del botón (Añadir Reseña)
     private fun mostrarDialogoAñadir() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_resena, null)
         val tituloInput = dialogView.findViewById<EditText>(R.id.editTitulo)
@@ -227,6 +270,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    // Lógica de Editar Reseña
     private fun mostrarDialogoEditar(resena: UserReview) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_resena, null)
         val tituloInput = dialogView.findViewById<EditText>(R.id.editTitulo)
@@ -336,5 +380,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialog.show()
+    }
+
+
+    // Buscar por título (Buscador)
+    private fun buscarPorTitulo(nombre: String) {
+        lifecycleScope.launch {
+            val resultados = reviewDao.getByTitulo(nombre)
+            adapter.actualizarDatos(resultados)
+        }
+    }
+
+    // Cargar todas las reseñas (Buscador)
+    private fun cargarTodas() {
+        lifecycleScope.launch {
+            val lista = reviewDao.getAll()
+            adapter.actualizarDatos(lista)
+        }
     }
 }

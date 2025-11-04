@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- TopBar usando Toolbar -->
+        <!-- TopBar - Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarMain"
             android:layout_width="match_parent"
@@ -30,14 +30,14 @@
             android:title=""
             app:titleTextColor="#FFFFFF">
 
-            <!-- Contenedor horizontal dentro del Toolbar -->
+            <!-- Contenedor  -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
 
-                <!-- Logo a la izquierda -->
+                <!-- Logo -->
                 <ImageView
                     android:id="@+id/logoImage"
                     android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"/>
 
-                <!-- Espacio flexible -->
+                <!-- Espacio  -->
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -77,12 +77,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!-- Barra de Busqueda -->
+            <EditText
+                android:id="@+id/editBuscar"
+                android:hint="Buscar por título.."
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- Spinner Géneros -->
             <Spinner
                 android:id="@+id/spinnerGenero"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"/>
 
+            <!-- Vista de reseñas -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewReview"
                 android:layout_width="match_parent"
@@ -90,6 +101,7 @@
                 android:layout_weight="1"
                 android:layout_marginBottom="16dp"/>
 
+            <!-- Boton Añadir -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonAdd"
                 android:layout_width="match_parent"

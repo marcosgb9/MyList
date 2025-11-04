@@ -40,4 +40,9 @@ interface UserReviewDao {  // Métodos
     // Eliminar
     @Delete
     suspend fun delete(review: UserReview)
+
+    // Buscar reseñas por título
+    @Query("SELECT * FROM reviews WHERE titulo LIKE '%' || :nombre || '%'")
+    suspend fun getByTitulo(nombre: String): List<UserReview>
+
 }
