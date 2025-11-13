@@ -3,13 +3,23 @@ package com.example.mylist
 import AppDatabase
 import UserReview
 import UserReviewDao
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -72,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         // Carga todas las reseñas al iniciar (método)
         cargarTodas()
 
+
         // Lógica del Buscador
         editBuscar.addTextChangedListener { texto ->
             val query = texto.toString()
@@ -81,6 +92,22 @@ class MainActivity : AppCompatActivity() {
                 buscarPorTitulo(query)
             }
         }
+
+
+
+        //Pedir permiso para recibir notificaciones
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
+            }
+        }
+
+        // Crear Notificaciones
+
+        crearCanalNotificacion()
 
 
         // Lógica del Spinner
@@ -149,6 +176,34 @@ class MainActivity : AppCompatActivity() {
                 adapter.actualizarDatos(reviews)
             }
         }
+    }
+
+    private fun crearCanalNotificacion() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val nombre = "Reseñas"
+            val descripcion = "Notificaciones"
+            val importancia = NotificationManager.IMPORTANCE_DEFAULT
+            val canal = NotificationChannel("RESEÑAS", nombre, importancia).apply {
+                description = descripcion
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(canal)
+        }
+    }
+
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    private fun mostrarNotificacion(titulo: String, mensaje: String) {
+        val builder = NotificationCompat.Builder(this, "RESEÑAS")
+            .setSmallIcon(R.drawable.notificacion)
+            .setContentTitle(titulo)
+            .setContentText(mensaje)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+
+        val notificationManager = NotificationManagerCompat.from(this)
+        notificationManager.notify(System.currentTimeMillis().toInt(), builder.build())
     }
 
 
@@ -246,6 +301,25 @@ class MainActivity : AppCompatActivity() {
                         lifecycleScope.launch(Dispatchers.IO) {
                             reviewDao.insert(resena)
                             filtrarLista(generoFiltro.selectedItem.toString())
+
+                            // Mostrar notificación en el hilo principal
+                            withContext(Dispatchers.Main) {
+                                if (ActivityCompat.checkSelfPermission(
+                                        this@MainActivity,
+                                        Manifest.permission.POST_NOTIFICATIONS
+                                    ) != PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    // Si no hay permiso, lo pedimos
+                                    ActivityCompat.requestPermissions(
+                                        this@MainActivity,
+                                        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                                        101
+                                    )
+                                    return@withContext
+                                }
+
+                                mostrarNotificacion("Nueva reseña añadida", "Has añadido: $titulo")
+                            }
                         }
 
                         dialog.dismiss()
@@ -350,6 +424,26 @@ class MainActivity : AppCompatActivity() {
                         lifecycleScope.launch(Dispatchers.IO) {
                             reviewDao.update(resenaActualizada)
                             filtrarLista(generoFiltro.selectedItem.toString())
+
+                            // Mostrar notificación en el hilo principal
+                            withContext(Dispatchers.Main) {
+                                if (ActivityCompat.checkSelfPermission(
+                                        this@MainActivity,
+                                        Manifest.permission.POST_NOTIFICATIONS
+                                    ) != PackageManager.PERMISSION_GRANTED
+                                ) {
+                                    // Si no hay permiso, lo pedimos
+                                    ActivityCompat.requestPermissions(
+                                        this@MainActivity,
+                                        arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                                        101
+                                    )
+                                    return@withContext
+                                }
+
+                                mostrarNotificacion("Reseña editada", "Has editado: $titulo")
+                            }
+
                         }
 
                         dialog.dismiss()
